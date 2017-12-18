@@ -394,6 +394,25 @@ static VALUE rb_gsl_cdf_binomial_Q(VALUE obj, VALUE kk, VALUE pp, VALUE nn)
   p = NUM2DBL(pp);
   return rb_float_new(gsl_cdf_binomial_Q(k, p, n));
 }
+
+static VALUE rb_gsl_cdf_binomial_Pinv(VALUE obj, VALUE xx, VALUE pp, VALUE nn)
+{
+  unsigned int x, n;
+  double p;
+  x = NUM2DBL(xx);
+  n = NUM2UINT(nn);
+  p = NUM2DBL(pp);
+  return rb_float_new(gsl_cdf_binomial_Pinv(x, p, n));
+}
+static VALUE rb_gsl_cdf_binomial_Qinv(VALUE obj, VALUE xx, VALUE pp, VALUE nn)
+{
+  unsigned int x, n;
+  double p;
+  x = NUM2DBL(xx);
+  n = NUM2UINT(nn);
+  p = NUM2DBL(pp);
+  return rb_float_new(gsl_cdf_binomial_Qinv(x, p, n));
+}
 static VALUE rb_gsl_cdf_poisson_P(VALUE obj, VALUE kk, VALUE mm)
 {
   unsigned int k;
@@ -700,8 +719,12 @@ void Init_gsl_cdf(VALUE module)
 
   rb_define_module_function(module, "cdf_binomial_P", rb_gsl_cdf_binomial_P, 3);
   rb_define_module_function(module, "cdf_binomial_Q", rb_gsl_cdf_binomial_Q, 3);
+  rb_define_module_function(module, "cdf_binomial_Pinv", rb_gsl_cdf_binomial_Pinv, 3);
+  rb_define_module_function(module, "cdf_binomial_Qinv", rb_gsl_cdf_binomial_Qinv, 3);
   rb_define_module_function(mgsl_cdf, "binomial_P", rb_gsl_cdf_binomial_P, 3);
   rb_define_module_function(mgsl_cdf, "binomial_Q", rb_gsl_cdf_binomial_Q, 3);
+  rb_define_module_function(mgsl_cdf, "binomial_Pinv", rb_gsl_cdf_binomial_Pinv, 3);
+  rb_define_module_function(mgsl_cdf, "binomial_Qinv", rb_gsl_cdf_binomial_Qinv, 3);
 
   rb_define_module_function(module, "cdf_poisson_P", rb_gsl_cdf_poisson_P, 2);
   rb_define_module_function(module, "cdf_poisson_Q", rb_gsl_cdf_poisson_Q, 2);
